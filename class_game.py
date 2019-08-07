@@ -64,12 +64,12 @@ def certain_demise():
     while health > 0:
         print("Oh no, your character is hurt!")
         health = health - 20
-        # users cannot take action
+        # users cannot take action, trolling until health is zero
         print("Do something quick! Their health is: ", health)
     print(character, "has perished.")
     lives -= 1  # player looses a life
     health = 100  # new life replenishes health
-    print(f'You have {health} health {lives} lives remaining.')
+    print(f'You have {health} health {lives} lives remaining.')  # using an f string to print player stats
 
 
 def helpful_tip():
