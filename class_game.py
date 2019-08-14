@@ -1,127 +1,157 @@
 # Description - Computer game
 # Dev - ak-foster
 
-# -- create game world  -- #
+# -- create game variables and player data  -- #
 # Name the game
-title = 'GoodGame'
+title = 'TheGoodGame'
 
-# Create a character
-character = 'Merv'
 
-# Name the world, yourself
-world = 'One World'
+# Create 'blue print' for players by making a class that starts each new player with the same name, stats, and motto
+class Player(object):
+    name = 'Merv'
+    lives = 3
+    health = 100
+    inventory = []
+    character_xp = 0
 
-# Give the player three lives
-lives = 3
+    @staticmethod
+    def motto():
+        print("We all make choices in life, but in the end our choices make us.")  # credit: Andrew Ryan, Bioshock
 
-# Create health
-health = 100
 
-# Define XP
-character_xp = 500
+p1 = Player()
 
-# Create inventory that is empty
-inventory = []
+print(p1.name, p1.lives)
+p1.motto()
 
 
 # -- game functionality -- #
 
 # Ask user new character name
-def get_name():
-    change_name = input('Please name your character: ')
-    return change_name
+def change_name():
+    new_name = input('Please name your character: ')
+    p1.name = new_name
+    print(f'Name updated to: {p1.name}')
 
 
-def level(whatever):
-    your_level = whatever / 50
-    print(your_level)
-
-
-# Print out the player stats
-def player_stats():
-    print('=' * 30)
-    print('Game Status')
-    print('Welcome, ', character, title, 'your on', world)
-    print('Level: \t', level())
-    print('Vitality: \t', lives, 'lives and', health, 'health')
-    print('=' * 30)
+def level(whatever):  # name a function parameter whatever you want, just use the same name in your function
+    your_level = whatever // 50  # using // to get the floor aka rounding down after dividing
+    return your_level
 
 
 def inventory_items():
-    print(f'You have {len(inventory)} items in your inventory.')  # single quote works with f strings too
-    if len(inventory) > 0:
+    print(f'You have {len(p1.inventory)} items in your inventory.')  # single quote works with f strings too
+    if len(p1.inventory) > 0:
         print('The items in inventory are:')
-        for items in inventory:
-            print(items)
+        for item in p1.inventory:  # looping through each position (item) in the sequence (inventory)
+            print(item)
 
 
 # -- plot progression or player advancement -- #
 
 # Quest 1 - Player dies every time, unless they have a carrot in inventory
 def certain_demise():
-    global health  # it's bad practice to use global like this, when we learn more we'll fix this TODO: fix global
-    global lives
-    print(f"A killer bunny attacks {character}!")   # using an f string to demonstrate another way to print variables
-    if 'carrot' not in inventory:
-        while health > 0:
-            print(f"{character}'s health is: {health}")
-            health = health - 40
-            print(f"Oh no, {character} is hurt and the rabbit is still attacking...do something quick!")
+    print(f"A killer bunny attacks {p1.name}!")   # an f string is another way to print variables
+    if 'carrot' not in p1.inventory:
+        while p1.health > 0:
+            print(f"{p1.name}'s health is: {p1.health}")
+            p1.health = p1.health - 40
+            print(f"Oh no, {p1.name} is hurt and the rabbit is still attacking...do something quick!")
             # users cannot take any actions, they are not prompted TODO: create way for player to stop attack
-        print(character, "has perished.")
-        lives -= 1  # player looses a life
-        health = 100  # new life replenishes health
-        print(f"You have {health} health {lives} lives remaining.")
+        print(p1.name, "has perished.")
+        p1.lives -= 1  # player looses a life
+        p1.health = 100  # new life replenishes health
+        print(f"You have {p1.health} health {p1.lives} lives remaining.")
     else:
-        print(f"{character} pulls out a carrot and tosses it toward the hungry bunny, sparing {character}'s life.")
+        print(f"{p1.name} pulls out a carrot and tosses it toward the hungry bunny, sparing {p1.name}'s life.")
         inventory.remove('carrot')
 
+
 def translate_quest():
-    global inventory # this is bad TODO: will fix
-    words = 'Zkalet meh jonpass'
-    print(f'The gatekeeper says {words}')
+    loot = ['gold', 'water']
+    words = 'Zkalet meh jonpass.'
+    print(f'The gatekeeper says, "{words}"')
     # Use words to make a string that says 'let me PASS' by using only slicing and string methods we've covered
     print('')
-    answer = words[3:9] + words[10] + words[-4:].upper()
+    answer = words[3:9] + words[10] + words[-5:-1].upper()
     # If successful, notify user and award with new items for inventory
-    print(f'{character} says, "{answer}!" The guard nods and moves aside to let {character} pass by.')
     if answer == 'let me PASS':
-        print('Congrats you win! Check your inventory for new loot.')
-        loot = ['gold', 'armor']
-        inventory += loot
+        if 'note' in p1.inventory:  # if the character has completed helpful_tip quest, they have a note
+            print(f'{p1.name} says, "It is a nice blue sky day...wont you {answer}?" The guard nods and moves aside.')
+            print(f'While walking by the guard throws {p1.name} a backpack.')
+            loot += ['crossbow', 'medical kit']  # bonus loot for having the note, adds to loot normally awarded
+        else:
+            print(f'{p1.name} says, "Please {answer} and walks past the guard."')
+        p1.inventory += loot
+        print('Quest complete. Check your inventory for new loot!')
+    else:
+        print(f'{p1.name} says nothing and attempts to walk past the guard.  The guard pushes {p1.name} off the bridge.')
+        p1.lives -= 1
+        print(f'{p1.name} has perished.  {p1.lives} remain.')
+
 
 
 def helpful_tip():
-    print('A stranger says the pass phrase at the bridge is "blue sky". Say it to the guard.')
+    print('A stranger hands you a note that reads-- secret pass phrase at the bridge '
+          'is "blue sky". Say it to the guard to earn extra loot.')
+    loot = ['note']
+    if 'note' not in p1.inventory:
+        p1.inventory += loot
+
+# TODO: use helpful_tip() after a player completes something
+
+# --- user I/O --- #
+# Keep playing game while lives are left
+
+
+# Print out the player stats
+def player_stats():
+    print('=' * 30)
+    print('  :::: Character Stats ::::\n')
+    print(f'Name: \t\t\t', f'{p1.name}')
+    print('Experience: \t', f'{p1.character_xp} XP')
+    print('Level: \t\t\t', f'{level(p1.character_xp)}')
+    print('Vitality: \t\t', p1.lives, 'lives and', p1.health, 'health')
+    print('Inventory: \t\t', f'{len(p1.inventory)} items')
+    print('=' * 30)
+    input('\nPress ENTER to return the game menu...')
 
 
 def menu_quests():
-    response = int(input("""
-            To select an option from the menu, enter the number:
-
-            - 1 - Translate quest
-            - 2 - Certain Demise quest
-            - 0 - To exit
+    while True:
+        response = int(input("""
+    To select a quest from the menu, enter the number:
+    
+        - 1 - Translate
+        - 2 - Certain Demise
+        - 0 - To return to the game menu
             """))
-    if response == 1:
-        translate_quest()
-    elif response == 2:
-        certain_demise()
+        if response == 1:
+            print('*' * 40)
+            translate_quest()
+            print('*' * 40)
+        elif response == 2:
+            print('*' * 40)
+            certain_demise()
+            print('*' * 40)
+        elif response == 0:
+            menu_prompt()
+        else:
+            print('Invalid input. Try again.')  # if the user enters anything unexpected, start over and ask
+
 
 def menu_prompt():
-    while lives > 0:
-        response = int(input("""
-        To select an option from the menu, enter the number:
-    
+    while p1.lives > 0:  # TODO: fix int() below that causes crash when user doesn't input a number
+        response = int(input(""" 
+    To select an option from the menu, enter the number:
         - 1 - Rename your character
-        - 2 - Show player stats
-        - 3 - Show items in inventory
-        - 4 - Show the quests menu
-        - 0 - To exit
+        - 2 - Player stats
+        - 3 - Open inventory
+        - 4 - Start a quest
+        - 0 - Exit
         """))
         if response == 1:
-            character = get_name()
-            print('Your new name is: ', character)
+            change_name()
         elif response == 2:
             player_stats()
         elif response == 3:
@@ -129,18 +159,33 @@ def menu_prompt():
         elif response == 4:
             menu_quests()
         elif response == 0:
-            helpful_tip()
+            menu()
+        else:
+            print('Invalid input. Try again.')  # if the user enters anything unexpected, start over and ask
+
+
+def menu():
+    while True:
+        print(f'Welcome to {title}')
+        response = int(input("""
+            To select an option from the menu, enter the number:
+                - 1 - Play game
+                - 2 - Change name
+                - 3 - Save
+                - 0 - Exit
+                """))
+        if response == 1:
+            menu_prompt()
+        elif response == 2:
+            change_name()
+        elif response == 3:
+            pass  # TODO: create ability to save game state
+        elif response == 0:
             exit()
         else:
-            print('Wrong input. Try again.')  # if the user enters anything unexpected, start over and ask
+            print('Invalid input. Please select from the menu.')
 
-level(character_xp)
-
-# --- User I/O --- #
-# Keep playing game while lives are left
-
-
-
+menu()
 # Outside the loop which means no lives are left.
-print(f'GAME OVER. {character} is no more.')
+print(f'GAME OVER. {p1.name} is no more.')
 
