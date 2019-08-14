@@ -33,7 +33,7 @@ def get_name():
 
 
 def level(whatever):
-    your_level = whatever / 50  # notice that xp refers to a variable outside this function
+    your_level = whatever / 50
     print(your_level)
 
 
