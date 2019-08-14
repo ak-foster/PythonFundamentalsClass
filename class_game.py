@@ -1,6 +1,5 @@
-# Desc - Computer game
+# Description - Computer game
 # Dev - ak-foster
-# change log
 
 # -- create game world  -- #
 # Name the game
