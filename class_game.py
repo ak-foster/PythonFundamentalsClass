@@ -3,7 +3,7 @@
 
 # -- create game variables and player data  -- #
 # Name the game
-title = 'TheGoodGame'
+title = 'Farside - The Game'
 
 
 # Create 'blue print' for players by making a class that starts each new player with the same name, stats, and motto
