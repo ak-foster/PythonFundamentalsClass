@@ -3,7 +3,7 @@
 
 # -- create game variables and player data  -- #
 # Name the game
-title = 'The Good Game'
+title = 'The Game of Choice'
 
 
 # Create 'blue print' for players by making a class that starts each new player with the same name, stats, and motto
@@ -27,9 +27,9 @@ p1 = Player()
 
 # Ask user new character name
 def change_name():
-    new_name = input('Please name your character: ')
+    new_name = input('Please name your character: ')  # single or double quotes work with strings
     p1.name = new_name
-    print(f'Name updated to: {p1.name}')
+    print(f'Name updated to: {p1.name}')  # single or double quotes also work with f strings,
 
 
 # Given player xp, return their level
@@ -40,9 +40,9 @@ def level(whatever):  # name a function parameter whatever you want, just use th
 
 # Display player inventory
 def inventory_items():
-    print(f'You have {len(p1.inventory)} items in your inventory.')  # single quote works with f strings too
+    print(f'You have {len(p1.inventory)} items in your inventory.')
     if len(p1.inventory) > 0:
-        print("The items in inventory are:")  # double quotes also work with strings
+        print("The items in inventory are:")
         for item in p1.inventory:  # looping through each position (item) in the sequence (inventory)
             print(item)
 
@@ -51,7 +51,7 @@ def inventory_items():
 
 # Quest - Player dies every time, unless they have a carrot in inventory
 def certain_demise():
-    print(f"A killer bunny attacks {p1.name}!")   # an f string is another way to print variables
+    print(f"A killer bunny attacks {p1.name}!")   # using an f string is an easy way to print variables
     if 'carrot' not in p1.inventory:
         while p1.health > 0:
             print(f"{p1.name}'s health is: {p1.health}")
@@ -70,7 +70,7 @@ def certain_demise():
 def translate_quest():
     loot = ['gold', 'water']
     words = 'Zkalet meh jonpass.'
-    print(f'The gatekeeper says, "{words}"')
+    print(f'The guard says, "{words}"')
     # Use words to make a string that says 'let me PASS' by using only slicing and string methods we've covered
     answer = words[3:9] + words[10] + words[-5:-1].upper()
     user_yn = ask_yn('The guard is speaking another language.  Would you like to respond in that language?')
@@ -78,7 +78,7 @@ def translate_quest():
     if answer == 'let me PASS' and user_yn == 'yes':
         if 'note' in p1.inventory:  # if the character has completed helpful_tip quest, they have a note
             print(f'{p1.name} says, "It is a nice blue sky day...wont you {answer}?" The guard nods and moves aside.')
-            print(f'While walking by the guard throws {p1.name} a backpack.')
+            print(f'While walking past, the guard hands {p1.name} a backpack.')
             loot += ['crossbow', 'medical kit']  # bonus loot for having the note, adds to loot normally awarded
         else:
             print(f'{p1.name} says, "Please {answer} and walks past the guard."')
@@ -129,7 +129,7 @@ def quests_menu():
     To select a quest from the menu, enter the number:
         - 1 - Translate
         - 2 - Certain Demise
-        - 0 - To return to the game menu
+        - 0 - Return to the game menu
         """))
         if response == 1:
             print('*' * 40)
@@ -179,6 +179,7 @@ def main_menu():
         - 1 - Play game
         - 2 - Change name
         - 3 - Save
+        - 4 - Load
         - 0 - Exit 
         """))
         if response == 1:
@@ -186,7 +187,9 @@ def main_menu():
         elif response == 2:
             change_name()
         elif response == 3:
-            pass  # TODO: create ability to save game state
+            pass  # TODO: save game state to file
+        elif response == 4:
+            pass  # TODO: load game state that was previously saved
         elif response == 0:
             exit()
         else:
