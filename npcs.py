@@ -8,7 +8,9 @@ from os import random as truerand
 
 
 class Npc(object):
-    
+    name = ""
+    health = 1
+    inventory = []
     
     @staticmethod
     def vendor_greetings():
