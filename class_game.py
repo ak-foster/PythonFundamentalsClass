@@ -5,6 +5,7 @@
 # Name the game
 title = 'The Good Game'
 
+import npcs
 
 # Create 'blue print' for players by making a class that starts each new player with the same name, stats, and motto
 class Player(object):
@@ -18,6 +19,28 @@ class Player(object):
     def motto():
         print('"We all make choices in life, but in the end our choices make us."')  # credit: Andrew Ryan, Bioshock
 
+    # Ask user new character name
+    def change_name(self):
+        new_name = input('Please name your character: ')
+        p1.name = self.new_name
+        print(f'Name updated to: {p1.name}')
+
+
+    # Given player xp, return their level
+    def level(whatever):  # name a function parameter whatever you want, just use the same name in your function
+        your_level = whatever // 50  # using // to get the floor aka rounding down after dividing
+        return your_level
+
+
+    # Display player inventory
+    def inventory_items():
+        print(f'You have {len(p1.inventory)} items in your inventory.')  # single quote works with f strings too
+        if len(p1.inventory) > 0:
+            print("The items in inventory are:")  # double quotes also work with strings
+            for item in p1.inventory:  # looping through each position (item) in the sequence (inventory)
+                print(item)
+
+
 
 # Create player 1
 p1 = Player()
@@ -25,26 +48,6 @@ p1 = Player()
 
 # -- game functionality -- #
 
-# Ask user new character name
-def change_name():
-    new_name = input('Please name your character: ')
-    p1.name = new_name
-    print(f'Name updated to: {p1.name}')
-
-
-# Given player xp, return their level
-def level(whatever):  # name a function parameter whatever you want, just use the same name in your function
-    your_level = whatever // 50  # using // to get the floor aka rounding down after dividing
-    return your_level
-
-
-# Display player inventory
-def inventory_items():
-    print(f'You have {len(p1.inventory)} items in your inventory.')  # single quote works with f strings too
-    if len(p1.inventory) > 0:
-        print("The items in inventory are:")  # double quotes also work with strings
-        for item in p1.inventory:  # looping through each position (item) in the sequence (inventory)
-            print(item)
 
 
 # -- plot progression or player advancement -- #
@@ -52,7 +55,7 @@ def inventory_items():
 # Quest - Player dies every time, unless they have a carrot in inventory
 def certain_demise():
     print(f"A killer bunny attacks {p1.name}!")   # an f string is another way to print variables
-    if 'carrot' not in p1.inventory:
+    if 'carrot' not in p1.inventory_items:
         while p1.health > 0:
             print(f"{p1.name}'s health is: {p1.health}")
             p1.health = p1.health - 40
@@ -63,7 +66,7 @@ def certain_demise():
         print(f"{p1.lives} lives remain.")
     else:
         print(f"{p1.name} pulls out a carrot and tosses it toward the hungry bunny, sparing {p1.name}'s life.")
-        inventory.remove('carrot')
+        p1.inventory_items.remove('carrot')
 
 
 # Quest - Player translates words and receives loot if successful
@@ -109,7 +112,7 @@ def player_stats():
     print('  :::: Character Stats ::::\n')
     print(f'Name: \t\t\t', f'{p1.name}')
     print('Experience: \t', f'{p1.character_xp} XP')
-    print('Level: \t\t\t', f'{level(p1.character_xp)}')
+    print('Level: \t\t\t', f'{p1.level(p1.character_xp)}')
     print('Vitality: \t\t', p1.lives, 'lives and', p1.health, 'health')
     print('Inventory: \t\t', f'{len(p1.inventory)} items')
     print('=' * 30)
@@ -161,7 +164,7 @@ def game_menu():
         elif response == 2:
             player_stats()
         elif response == 3:
-            inventory_items()
+            p1.inventory_items()
         elif response == 4:
             quests_menu()
         elif response == 0:
@@ -184,7 +187,7 @@ def main_menu():
         if response == 1:
             game_menu()
         elif response == 2:
-            change_name()
+            p1.change_name()
         elif response == 3:
             pass  # TODO: create ability to save game state
         elif response == 0:
