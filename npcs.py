@@ -13,7 +13,7 @@ class Npc(object):
     __NpcCount = 0
     
     @staticmethod
-    def vendor_greetings():
+    def greetings():
         print("Can't wait to count out your coin") # Credit to Skyrim
         
     def __init__(self, name = ''):
@@ -46,3 +46,5 @@ class Npc(object):
     @staticmethod
     def __SetNpcCount():
         Npc.__NpcCount += 1
+        
+        
