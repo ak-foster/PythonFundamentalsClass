@@ -4,6 +4,7 @@
 # -- create game variables and npc data  -- #
 
 from pprint import pprint as prnt
+
 class Npc(object):
     
     __Coins = 10
@@ -43,5 +44,4 @@ class Npc(object):
     @staticmethod
     def __SetNpcCount():
         Npc.__NpcCount += 1
-        
         
