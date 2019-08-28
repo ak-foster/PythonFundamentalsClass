@@ -6,18 +6,23 @@
 title = 'The Good Game'
 
 import npcs
+from pprint import pprint as prnt
 
 # Create 'blue print' for players by making a class that starts each new player with the same name, stats, and motto
 class Player(object):
     name = 'Merv'
-    lives = 3
-    health = 100
+    # lives = 3
+    # health = 100
     inventory = []
     character_xp = 0
 
+    def __init__(self, lives = 3, health = 100):
+        self.lives = lives
+        self.health = health
+    
     @staticmethod
     def motto():
-        print('"We all make choices in life, but in the end our choices make us."')  # credit: Andrew Ryan, Bioshock
+        prnt('We all make choices in life, but in the end our choices make us.')  # credit: Andrew Ryan, Bioshock
 
     # Ask user new character name
     def change_name(self):
