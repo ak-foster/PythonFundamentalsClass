@@ -106,8 +106,8 @@ p1 = Player('Chuano')
 # Create player 2
 p2 = Player('Marley', lives=2, health=150)
 
-
-
+print(p1.name)
+print(p2.name)
 
 # -- game functionality -- #
 
