@@ -31,7 +31,6 @@ class Player(object):
         your_level = whatever // 50  # using // to get the floor aka rounding down after dividing
         return your_level
 
-
     # Display player inventory
     def inventory_items():
         print(f'You have {len(p1.inventory)} items in your inventory.')  # single quote works with f strings too
@@ -201,4 +200,3 @@ main_menu()
 
 # Outside the loop which means no lives are left.
 print(f'GAME OVER. {p1.name} is no more.')
-
