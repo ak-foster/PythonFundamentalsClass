@@ -49,13 +49,12 @@ class Player(object):
 
 
 # Create player 1
-p1 = Player()
+p1 = Player('Chuano')
 p2 = Player('Marley', lives=2, health=150)
 
-print(p2.lives)
-
 # -- game functionality -- #
-
+def battle():
+    pass
 
 
 # -- plot progression or player advancement -- #
