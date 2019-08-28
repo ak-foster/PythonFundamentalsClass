@@ -33,7 +33,7 @@ class Player(object):
 
 
     # Display player inventory
-    def show_inventory_items():
+    def inventory_items():
         print(f'You have {len(p1.inventory)} items in your inventory.')  # single quote works with f strings too
         if len(p1.inventory) > 0:
             print("The items in inventory are:")  # double quotes also work with strings

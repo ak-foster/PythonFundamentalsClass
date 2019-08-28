@@ -4,9 +4,6 @@
 # -- create game variables and npc data  -- #
 
 from pprint import pprint as prnt
-from os import random as truerand
-
-
 class Npc(object):
     
     __Coins = 10
