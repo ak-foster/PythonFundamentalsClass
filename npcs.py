@@ -5,14 +5,14 @@
 
 from pprint import pprint as prnt
 
-class Npc(object):
+class NPC(Player):
     
     __Coins = 10
     __NpcCount = 0
     
     @staticmethod
     def greetings():
-        print("Can't wait to count out your coin") # Credit to Skyrim
+        prnt("Can't wait to count out your coin") # Credit to Skyrim
         
     def __init__(self, name = ''):
         self.__name = name
@@ -45,3 +45,6 @@ class Npc(object):
     def __SetNpcCount():
         Npc.__NpcCount += 1
         
+        
+class Vendor(Npc):
+    pass

@@ -15,24 +15,34 @@ class Player(object):
     # health = 100
     inventory = []
     # character_xp = 0
+    __level = 1
 
     def __init__(self, name = 'Merv', lives = 3, health = 100, character_xp = 0):
-        self.name = name
-        self.lives = lives
-        self.health = health
-        self.character_xp = character_xp
+        self.__name = name
+        self.__lives = lives
+        self.__health = health
+        self.__character_xp = character_xp
+        Player.__level_up()
     
+    @property # (accessor)
+    def name(self):
+        return self.__name
+    
+    @name.setter # (mutator)
+    def name(self, new_name):
+        new_name = input('Please name your character: ')
+        self.__name = new_name
+        print(f'Name updated to: {name}')
+
     @staticmethod
     def motto():
         prnt('We all make choices in life, but in the end our choices make us.')  # credit: Andrew Ryan, Bioshock
 
-    # Ask user new character name
-    def change_name(self):
-        new_name = input('Please name your character: ')
-        self.name = self.new_name
-        print(f'Name updated to: {p1.name}')
-
-
+    # Player levels up
+    @staticmethod
+    def __level_up():
+        Player.__level += 1
+    
     # Given player xp, return their level
     def level(whatever):  # name a function parameter whatever you want, just use the same name in your function
         your_level = whatever // 50  # using // to get the floor aka rounding down after dividing
@@ -46,15 +56,57 @@ class Player(object):
             for item in p1.inventory:  # looping through each position (item) in the sequence (inventory)
                 print(item)
 
-
+# Create Child class from Parent class
+class NPC(Player):
+    # Class for NPC information
+    __Coins = 10
+    __NpcCount = 0
+    
+    @staticmethod
+    def greetings():
+        prnt("Can't wait to count out your coin") # Credit to Skyrim
+        
+    def __init__(self, name = ''):
+        self.__name = name
+        NPC.__SetCoins()
+        NPC.__SetNpcCount() 
+    
+    @property
+    def name(self):
+        return self.__name
+    
+    @name.setter
+    def name(self, value):
+        self.__name = value
+    
+    def SetNpcName(self):
+        return self.name
+    
+    def __str__(self):
+        return self.name
+    
+    @staticmethod
+    def GetCoins():
+        return NPC.__Coins
+            
+    @staticmethod
+    def __SetCoins():
+        NPC.__Coins += 3
+        
+    @staticmethod
+    def __SetNpcCount():
+        NPC.__NPCCount += 1    
+    
 
 # Create player 1
 p1 = Player('Chuano')
+# Create player 2
 p2 = Player('Marley', lives=2, health=150)
 
+
+
+
 # -- game functionality -- #
-def battle():
-    pass
 
 
 # -- plot progression or player advancement -- #
