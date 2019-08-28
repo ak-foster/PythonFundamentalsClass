@@ -5,7 +5,6 @@
 # Name the game
 title = 'The Good Game'
 
-import npcs
 from pprint import pprint as prnt
 
 # Create 'blue print' for players by making a class that starts each new player with the same name, stats, and motto
@@ -60,7 +59,7 @@ class Player(object):
 class NPC(Player):
     # Class for NPC information
     __Coins = 10
-    __NpcCount = 0
+    # __NpcCount = 0
     
     @staticmethod
     def greetings():
@@ -69,7 +68,7 @@ class NPC(Player):
     def __init__(self, name = ''):
         self.__name = name
         NPC.__SetCoins()
-        NPC.__SetNpcCount() 
+        # NPC.__SetNpcCount() 
     
     @property
     def name(self):
@@ -93,10 +92,14 @@ class NPC(Player):
     def __SetCoins():
         NPC.__Coins += 3
         
-    @staticmethod
-    def __SetNpcCount():
-        NPC.__NPCCount += 1    
+    # @staticmethod
+    # # def __SetNpcCount():
+    # #     NPC.__NPCCount += 1    
     
+# Create NPC
+NPC1 = NPC('Johnny')
+
+print(NPC1.name)
 
 # Create player 1
 p1 = Player('Chuano')
