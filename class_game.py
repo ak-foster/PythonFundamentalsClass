@@ -10,15 +10,17 @@ from pprint import pprint as prnt
 
 # Create 'blue print' for players by making a class that starts each new player with the same name, stats, and motto
 class Player(object):
-    name = 'Merv'
+    # name = 'Merv'
     # lives = 3
     # health = 100
     inventory = []
-    character_xp = 0
+    # character_xp = 0
 
-    def __init__(self, lives = 3, health = 100):
+    def __init__(self, name = 'Merv', lives = 3, health = 100, character_xp = 0):
+        self.name = name
         self.lives = lives
         self.health = health
+        self.character_xp = character_xp
     
     @staticmethod
     def motto():
@@ -27,7 +29,7 @@ class Player(object):
     # Ask user new character name
     def change_name(self):
         new_name = input('Please name your character: ')
-        p1.name = self.new_name
+        self.name = self.new_name
         print(f'Name updated to: {p1.name}')
 
 
@@ -48,7 +50,9 @@ class Player(object):
 
 # Create player 1
 p1 = Player()
+p2 = Player('Marley', lives=2, health=150)
 
+print(p2.lives)
 
 # -- game functionality -- #
 
@@ -201,7 +205,7 @@ def main_menu():
 
 
 # Call main menu to prompt the user
-main_menu()
+# main_menu()
 
 # Outside the loop which means no lives are left.
-print(f'GAME OVER. {p1.name} is no more.')
+# print(f'GAME OVER. {p1.name} is no more.')
