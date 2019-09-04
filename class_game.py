@@ -50,13 +50,28 @@ class Player(object):
         your_level = whatever // 50  # using // to get the floor aka rounding down after dividing
         return your_level
 
-    # Display player inventory
-    def inventory_items():
-        print(f'You have {len(p1.inventory)} items in your inventory.')  # single quote works with f strings too
-        if len(p1.inventory) > 0:
+# Player inventory mechanics
+class Inventory_items(object):
+    
+    __item_count = 0
+    
+    def __init__(self, inventory = [], items = []):
+        self.__inventory = inventory
+        self.__items = items
+        Inventory_items.add_item()
+    
+    def display_items(self):
+        print(f'You have {len(self.inventory)} items in your inventory.')  # single quote works with f strings too
+        if len(self.inventory) > 0:
             print("The items in inventory are:")  # double quotes also work with strings
-            for item in p1.inventory:  # looping through each position (item) in the sequence (inventory)
+            for item in self.inventory:  # looping through each position (item) in the sequence (inventory)
                 print(item)
+    
+    def add_item(self):
+        __item_count += len(self.items)
+    
+    def remove_item(self):
+        pass
 
 # Create Child class from Parent class
 class NPC(Player):
