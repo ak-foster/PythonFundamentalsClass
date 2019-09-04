@@ -3,8 +3,10 @@
 
 # -- create game variables and player data  -- #
 # Name the game
-# title = 'The Good Game'
-title = 'The Greatest Game'
+# title = 'The Game of Choice'
+title = 'The Greatest Game Ever to be Gamed'
+
+import pickle
 
 from pprint import pprint as prnt
 
@@ -32,7 +34,7 @@ class Player(object):
     def name(self, new_name):
         new_name = input('Please name your character: ')
         self.__name = new_name
-        print(f'Name updated to: {name}')
+        print(f'Name updated to: {new_name}')
 
     @staticmethod
     def motto():
@@ -98,7 +100,7 @@ class NPC(Player):
     # #     NPC.__NPCCount += 1    
     
 # Create NPC
-NPC1 = NPC('Johnny')
+NPC1 = NPC('Appleseed')
 
 # print(NPC1.name)
 
@@ -250,7 +252,8 @@ def main_menu():
         if response == 1:
             game_menu()
         elif response == 2:
-            p1.change_name()
+            prnt('Please enter a new name.')
+            p1.name(input('> '))
         elif response == 3:
             pass  # TODO: create ability to save game state
         elif response == 0:
