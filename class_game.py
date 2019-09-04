@@ -1,52 +1,127 @@
 # Description - Computer game
-# Dev - ak-foster
+
 import pickle
 
-# -- create game variables and player data  -- #
-# Name the game
-title = 'The Game of Choice'
-
+from pprint import pprint as prnt
 
 # Create 'blue print' for players by making a class that starts each new player with the same name, stats, and motto
 class Player(object):
-    name = 'Merv'
-    lives = 3
-    health = 100
+    # name = 'Merv'
+    # lives = 3
+    # health = 100
     inventory = []
-    character_xp = 0
+    # character_xp = 0
+    __level = 1
+
+    def __init__(self, name = 'Merv', lives = 3, health = 100, character_xp = 0):
+        self.__name = name
+        self.__lives = lives
+        self.__health = health
+        self.__character_xp = character_xp
+        Player.__level_up()
+    
+    @property # (accessor)
+    def name(self):
+        return self.__name
+    
+    @name.setter # (mutator)
+    def name(self, new_name):
+        new_name = input('Please name your character: ')
+        self.__name = new_name
+        print(f'Name updated to: {new_name}')
 
     @staticmethod
     def motto():
-        print('"We all make choices in life, but in the end our choices make us."')  # credit: Andrew Ryan, Bioshock
+        prnt('We all make choices in life, but in the end our choices make us.')  # credit: Andrew Ryan, Bioshock
 
+    # Player levels up
+    @staticmethod
+    def __level_up():
+        Player.__level += 1
+    
+    # Given player xp, return their level
+    def level(whatever):  # name a function parameter whatever you want, just use the same name in your function
+        your_level = whatever // 50  # using // to get the floor aka rounding down after dividing
+        return your_level
+
+# Player inventory mechanics
+class Inventory_items(object):
+    
+    __item_count = 0
+    
+    def __init__(self, inventory = [], items = []):
+        self.__inventory = inventory
+        self.__items = items
+        Inventory_items.add_item()
+    
+    def display_items(self):
+        print(f'You have {len(self.inventory)} items in your inventory.')  # single quote works with f strings too
+        if len(self.inventory) > 0:
+            print("The items in inventory are:")  # double quotes also work with strings
+            for item in self.inventory:  # looping through each position (item) in the sequence (inventory)
+                print(item)
+    
+    def add_item(self):
+        __item_count += len(self.items)
+    
+    def remove_item(self):
+        pass
+
+# Create Child class from Parent class
+class NPC(Player):
+    # Class for NPC information
+    __Coins = 10
+    # __NpcCount = 0
+    
+    @staticmethod
+    def greetings():
+        prnt("Can't wait to count out your coin") # Credit to Skyrim
+        
+    def __init__(self, name = ''):
+        self.__name = name
+        NPC.__SetCoins()
+        # NPC.__SetNpcCount() 
+    
+    @property
+    def name(self):
+        return self.__name
+    
+    @name.setter
+    def name(self, value):
+        self.__name = value
+    
+    def SetNpcName(self):
+        return self.name
+    
+    def __str__(self):
+        return self.name
+    
+    @staticmethod
+    def GetCoins():
+        return NPC.__Coins
+            
+    @staticmethod
+    def __SetCoins():
+        NPC.__Coins += 3
+        
+    # @staticmethod
+    # # def __SetNpcCount():
+    # #     NPC.__NPCCount += 1    
+    
+# Create NPC
+NPC1 = NPC('Appleseed')
+
+# print(NPC1.name)
 
 # Create player 1
-p1 = Player()
+p1 = Player('Chuano')
+# Create player 2
+p2 = Player('Marley', lives=2, health=150)
 
+# print(p1.name)
+# print(p2.name)
 
 # -- game functionality -- #
-
-# Ask user new character name
-def change_name():
-    new_name = input('Please name your character: ')  # single or double quotes work with strings
-    p1.name = new_name
-    print(f'Name updated to: {p1.name}')  # single or double quotes also work with f strings,
-
-
-# Given player xp, return their level
-def level(whatever):  # name a function parameter whatever you want, just use the same name in your function
-    your_level = whatever // 50  # using // to get the floor aka rounding down after dividing
-    return your_level
-
-
-# Display player inventory
-def inventory_items():
-    print(f'You have {len(p1.inventory)} items in your inventory.')
-    if len(p1.inventory) > 0:
-        print("The items in inventory are:")
-        for item in p1.inventory:  # looping through each position (item) in the sequence (inventory)
-            print(item)
-
 
 # Save game
 def save_progress(player):
@@ -67,8 +142,6 @@ def load_progress():
 
 # Quest - Player dies every time, unless they have a carrot in inventory
 def certain_demise():
-    print(f"A killer bunny attacks {p1.name}!")   # using an f string is an easy way to print variables
-    if 'carrot' not in p1.inventory:
         while p1.health > 0:
             print(f"{p1.name}'s health is: {p1.health}")
             p1.health = p1.health - 40
@@ -79,7 +152,7 @@ def certain_demise():
         print(f"{p1.lives} lives remain.")
     else:
         print(f"{p1.name} pulls out a carrot and tosses it toward the hungry bunny, sparing {p1.name}'s life.")
-        inventory.remove('carrot')
+        p1.inventory_items.remove('carrot')
 
 
 # Quest - Player translates words and receives loot if successful
@@ -125,7 +198,7 @@ def player_stats():
     print('  :::: Character Stats ::::\n')
     print(f'Name: \t\t\t', f'{p1.name}')
     print('Experience: \t', f'{p1.character_xp} XP')
-    print('Level: \t\t\t', f'{level(p1.character_xp)}')
+    print('Level: \t\t\t', f'{p1.level(p1.character_xp)}')
     print('Vitality: \t\t', p1.lives, 'lives and', p1.health, 'health')
     print('Inventory: \t\t', f'{len(p1.inventory)} items')
     print('=' * 30)
@@ -177,7 +250,7 @@ def game_menu():
         elif response == 2:
             player_stats()
         elif response == 3:
-            inventory_items()
+            p1.inventory_items()
         elif response == 4:
             quests_menu()
         elif response == 0:
@@ -201,7 +274,8 @@ def main_menu():
         if response == 1:
             game_menu()
         elif response == 2:
-            change_name()
+            prnt('Please enter a new name.')
+            p1.name(input('> '))
         elif response == 3:
             pass  # TODO: save game state to file
         elif response == 4:
@@ -217,4 +291,3 @@ main_menu()
 
 # Outside the loop which means no lives are left.
 print(f'GAME OVER. {p1.name} is no more.')
-
