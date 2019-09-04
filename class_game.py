@@ -1,5 +1,6 @@
 # Description - Computer game
 # Dev - ak-foster
+import pickle
 
 # -- create game variables and player data  -- #
 # Name the game
@@ -45,6 +46,21 @@ def inventory_items():
         print("The items in inventory are:")
         for item in p1.inventory:  # looping through each position (item) in the sequence (inventory)
             print(item)
+
+
+# Save game
+def save_progress(player):
+    save_file = open('player.dat', 'wb+')
+    pickle.dump(player, save_file)
+    save_file.close()
+    print(f'Progress for {player.name} has been saved.')
+
+
+# Load game
+def load_progress():
+    save_file = open('player.dat', 'rb+')
+    save_file.close()
+    return pickle.load(save_file)
 
 
 # -- plot progression or player advancement -- #
