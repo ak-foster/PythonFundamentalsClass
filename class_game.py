@@ -1,9 +1,10 @@
 # Description - Computer game
-# Dev - ak-foster
+# Dev - ak-foster, jk-morris
 
 # -- create game variables and player data  -- #
 # Name the game
-title = 'The Good Game'
+# title = 'The Good Game'
+title = 'The Greatest Game'
 
 from pprint import pprint as prnt
 
@@ -99,15 +100,15 @@ class NPC(Player):
 # Create NPC
 NPC1 = NPC('Johnny')
 
-print(NPC1.name)
+# print(NPC1.name)
 
 # Create player 1
 p1 = Player('Chuano')
 # Create player 2
 p2 = Player('Marley', lives=2, health=150)
 
-print(p1.name)
-print(p2.name)
+# print(p1.name)
+# print(p2.name)
 
 # -- game functionality -- #
 
@@ -259,7 +260,7 @@ def main_menu():
 
 
 # Call main menu to prompt the user
-# main_menu()
+main_menu()
 
 # Outside the loop which means no lives are left.
-# print(f'GAME OVER. {p1.name} is no more.')
+print(f'GAME OVER. {p1.name} is no more.')
