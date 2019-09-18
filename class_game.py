@@ -1,6 +1,5 @@
 # Description - Computer game
 # Dev - ak-foster
-
 import pickle
 import quests
 

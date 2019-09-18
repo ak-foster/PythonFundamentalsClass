@@ -1,5 +1,6 @@
 # Description: Contains all quests for game, meant to be imported by class_game.py
 
+
 # -- plot progression or player advancement -- #
 
 # Given a question, return yes or no answer from user
