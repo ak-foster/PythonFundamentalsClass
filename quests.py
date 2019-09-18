@@ -1,3 +1,5 @@
+# Description: Contains all quests for game, meant to be imported by class_game.py
+
 # -- plot progression or player advancement -- #
 
 
@@ -21,7 +23,7 @@ def certain_demise(p1):
         print(f"{p1.lives} lives remain.")
     else:
         print(f"{p1.name} pulls out a carrot and tosses it toward the hungry bunny, sparing {p1.name}'s life.")
-        inventory.remove('carrot')
+        p1.inventory.remove('carrot')
 
 
 # Quest - Player translates words and receives loot if successful
@@ -48,6 +50,22 @@ def translate_quest(p1):
         print(f'{p1.name} has perished.  {p1.lives} lives remain.')
 
 
+# Quest - Player fights boss and receives a carrot and a note if successful
+def boss_fight(p1, monster):
+    print(f'{p1.name} encounters {monster.name} and prepares to battle.')
+    user_yn = ask_yn('Would you like to fight?')
+    if user_yn == 'yes':
+        print(f'An epic battle ensues. {p1.name} misses with his first strike, {monster.name} strikes for 50 damage.')
+        p1.health -= 50
+        print(f'{monster.name} lunges to strike again, but {p1.name} parries and attacks, delivering a death blow.')
+        monster.die(monster)
+        p1.inventory += ['carrot']
+        print(f'{p1.name} wins the battle, but lost health in the process.  {p1.name} slowly walks away, limping.')
+        helpful_tip(p1)
+    else:
+        print(f'{p1.name} runs away and lives to fight another day.')
+
+
 # Quest - Player receives a note containing helpful tip
 def helpful_tip(p1):
     print('A stranger hands you a note that reads-- secret pass phrase at the bridge '
@@ -55,6 +73,4 @@ def helpful_tip(p1):
     loot = ['note']
     if 'note' not in p1.inventory:
         p1.inventory += loot
-
-# TODO: use helpful_tip() after a player completes something
 
