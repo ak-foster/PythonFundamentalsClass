@@ -2,7 +2,6 @@
 
 # -- plot progression or player advancement -- #
 
-
 # Given a question, return yes or no answer from user
 def ask_yn(question):
     answer = input(f'{question} (yes or no): ').strip()
